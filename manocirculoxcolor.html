@@ -53,13 +53,13 @@
         let color;
 
         if (pinch <= 100) {
-        color = [255, 0, 0]; // rojo
+        color = fill(255, 0, 0); // rojo
         } else if (pinch > 100 && pinch <300) {
-        color = [0, 255, 0]; // verde
+        color = fill(0, 255, 0); // verde
         } else if(pinch>300 ) {
-        color = [0, 0, 255]; // azul
+        color = fill(0, 0, 255); // azul
         }
-      fill(...color)
+      
       //stroke(0)
       stroke(255)
       strokeWeight(2)
