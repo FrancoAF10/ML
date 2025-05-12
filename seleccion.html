@@ -23,7 +23,13 @@
   </style>
   <div class="container">
 <div class="row">
-<div id="resultado" class="col-md-8"></div>
+
+<div id="resultado" class="col-md-8"><!-- Barra de progreso de Bootstrap -->
+<div class="progress mt-3">
+  <div id="progreso" class="progress-bar" role="progressbar" style="width: 0%;" 
+       aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+</div>
+</div>
 <div id="imagenes" class="col-md-4">
     <img src="./img/imagen-1 (1).jpg" alt="" class="img-fluid w-100 mb-2">
     <img src="./img/imagen-2 (1).jpg" alt="" class="img-fluid w-100 mb-2">
@@ -62,8 +68,8 @@
     imagenes = selectAll('#imagenes img');
 
     texto=createDiv("")
-    texto.position(canvas.x, canvas.y + height + 10); // debajo del canvas
 
+    texto.position(canvas.x, canvas.y + height + 10); // debajo del canvas
 
     // Añadir un evento de clic para cada imagen
     imagenes.forEach((imagen) => {
@@ -82,15 +88,18 @@
     });
   }
 
-  function gotResult(results){
-    console.log(results)
+  function gotResult(results) {
+  console.log(results);
 
-    //confianza, valor real entre 0 - 1
-    const confianza=(nf(results[0].confidence,0,2)*100)
-    texto.html(results[0].label + ' ' + confianza.toFixed(2) + '%');
+  const confianza = results[0].confidence * 100;
+  texto.html(results[0].label + ' ' + confianza.toFixed(2) + '%');
 
-    
-  }
+  // Actualiza la barra de progreso
+  const progreso = document.getElementById('progreso');
+  progreso.style.width = confianza + '%';
+  progreso.setAttribute('aria-valuenow', confianza.toFixed(2));
+  progreso.textContent = confianza.toFixed(2) + '%';
+}
 </script>
 </body>
 </html>
